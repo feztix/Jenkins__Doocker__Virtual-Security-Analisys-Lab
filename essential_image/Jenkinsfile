@@ -8,9 +8,9 @@ pipeline {
   }
   stages {
     stage('Build') {
-      steps {
-        sh 'docker build -t feztix/jenkins-alpine-test .'
-      }
+      script {
+            docker.build("essential_image:latest", "-f Documents/diplom/docker-images/images/essential_image .")
+        }
     }
     stage('Login') {
       steps {
