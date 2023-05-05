@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push feztix/Jenkins__Doocker__Virtual-Security-Analisys-Lab'
+        sh 'docker push feztix/jenkins-essential-image:latest'
       }
     }
   }
