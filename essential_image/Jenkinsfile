@@ -8,9 +8,9 @@ pipeline {
   }
   stages {
     stage('Build') {
-      script {
-            docker.build("essential_image:latest", "-f Documents/diplom/docker-images/images/essential_image .")
-        }
+    	steps {
+        sh 'docker build -t lloydmatereke/jenkins-docker-hub .'
+      }
     }
     stage('Login') {
       steps {
