@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
     	steps {
-	sh 'docker build -t feztix/Jenkins__Doocker__Virtual-Security-Analisys-Lab/essential_image .'
+	sh 'docker build -t feztix/jenkins-essential-image .'
       }
     }
     stage('Login') {
