@@ -1,5 +1,9 @@
 pipeline {
   agent any
+   parameters {
+        string(name: 'DOCKER_IMAGE_NAME', defaultValue: '', description: 'Docker image name')
+        string(name: 'DOCKERFILE_PATH', defaultValue: '', description: 'Path to the Dockerfile')
+    }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -9,7 +13,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-      	sh 'docker build -t feztix/jenkins-essential-image:latest -f essential_image/Dockerfile .'
+      	sh 'docker build -t ${env.DOCKER_IMAGE_NAME}:latest -f ${env.DOCKERFILE_PATH} .'
       }
     }
     stage('Login') {
@@ -19,7 +23,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push feztix/jenkins-essential-image:latest'
+        sh 'docker push ${env.DOCKER_IMAGE_NAME}:latest'
       }
     }
   }
