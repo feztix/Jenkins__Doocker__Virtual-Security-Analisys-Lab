@@ -1,8 +1,8 @@
 pipeline {
   agent any
    parameters {
-        string(name: 'DOCKER_IMAGE_NAME', defaultValue: '', description: 'Docker image name')
-        string(name: 'DOCKERFILE_PATH', defaultValue: '', description: 'Path to the Dockerfile')
+        string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'jenkins-essential-image:latest', description: 'Docker image name')
+        string(name: 'DOCKERFILE_PATH', defaultValue: 'essential_image/Dockerfile', description: 'Path to the Dockerfile')
     }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
