@@ -1,7 +1,7 @@
 pipeline {
   agent any
    parameters {
-        string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'jenkins-essential-image:latest', description: 'Docker image name')
+        string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'feztix/jenkins-essential-image:latest', description: 'Docker image name')
         string(name: 'DOCKERFILE_PATH', defaultValue: 'essential_image/Dockerfile', description: 'Path to the Dockerfile')
     }
   options {
