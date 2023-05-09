@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-      	sh 'docker build -t ${env.DOCKER_IMAGE_NAME}:latest -f ${env.DOCKERFILE_PATH} .'
+      	sh 'docker build -t ${env.DOCKER_IMAGE_NAME} -f ${env.DOCKERFILE_PATH} .'
       }
     }
     stage('Login') {
@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push ${env.DOCKER_IMAGE_NAME}:latest'
+        sh 'docker push ${env.DOCKER_IMAGE_NAME}'
       }
     }
   }
