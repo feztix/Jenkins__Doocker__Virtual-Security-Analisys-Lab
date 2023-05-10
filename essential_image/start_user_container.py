@@ -14,7 +14,7 @@ def start_challenge(username):
     docker_client = docker.from_env()
     container_port = 22
     host_port = random.randint(10000, 65000)
-    container_name = f"ssh-challenge-container-{username}"
+    container_name = f"ctf-ssh-challenge-container-{username}"
     docker_client.containers.run(
         "feztix/jenkins-essential-image",
         detach=True,
@@ -25,13 +25,13 @@ def start_challenge(username):
 
     # Возвращаем данные для подключения участника
     return {
-        "ssh_username": "ctfuser",
+        "ssh_username": username,
         "ssh_password": password,
         "ssh_host": "your_server_ip",
         "ssh_port": host_port
     }
 
-if __name__ == "__main__":
+if __name__ ==  "__main__":
     parser = argparse.ArgumentParser(description="Create a Docker container for a CTF challenge participant.")
     parser.add_argument("username", help="Username of the participant")
     args = parser.parse_args()
