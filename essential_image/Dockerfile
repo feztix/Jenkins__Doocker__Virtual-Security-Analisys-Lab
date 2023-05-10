@@ -1,18 +1,29 @@
-FROM ubuntu:latest
+# Используем базовый образ Ubuntu
+FROM ubuntu:20.04
 
-RUN apt-get update && \
-    apt-get install -y openssh-server && \
-    mkdir /var/run/sshd
+# Устанавливаем необходимые пакеты и обновляем систему
+RUN apt-get update && apt-get upgrade -y && apt-get install -y openssh-server
 
-# Создайте пользователя с именем 'user'
-RUN useradd -m -s /bin/bash user
+# Создаем директорию для работы SSH
+RUN mkdir /var/run/sshd
 
-# Установите пароль для пользователя (в данном примере пароль 'password')
-RUN echo 'user:password' | chpasswd
+# Создаем пользователя ctfuser
+RUN useradd -m -d /home/ctfuser -s /bin/bash ctfuser
 
-# Измените конфигурацию SSH, чтобы разрешить парольную аутентификацию
-RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+# Устанавливаем пароль для пользователя ctfuser
+RUN echo 'ctfuser:password' | chpasswd
 
+# Разрешаем парольную аутентификацию
+RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+# Устанавливаем локаль
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+# Открываем порт 22 для SSH
 EXPOSE 22
 
+# Запускаем SSH сервер
 CMD ["/usr/sbin/sshd", "-D"]
+
