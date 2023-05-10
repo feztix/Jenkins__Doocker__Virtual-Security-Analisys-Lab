@@ -15,13 +15,22 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-# Создаем файл entrypoint.sh
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Создаем скрипт entrypoint.sh и делаем его исполняемым
+RUN echo '#!/bin/bash\n\
+\n\
+# Создаем пользователя с указанными данными\n\
+useradd -m -d /home/${CTF_USERNAME} -s /bin/bash ${CTF_USERNAME}\n\
+\n\
+# Устанавливаем пароль для пользователя\n\
+echo "${CTF_USERNAME}:${CTF_PASSWORD}" | chpasswd\n\
+\n\
+# Запускаем SSH сервер\n\
+exec /usr/sbin/sshd -D' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Открываем порт 22 для SSH
 EXPOSE 22
 
 # Запускаем entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
 
