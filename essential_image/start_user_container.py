@@ -14,9 +14,9 @@ def start_challenge(username):
     docker_client = docker.from_env()
     container_port = 22
     host_port = random.randint(10000, 65000)
-    container_name = f"ctf-ssh-challenge-container-{username}"
+    container_name = f"ssh-challenge-container-{username}"
     docker_client.containers.run(
-        "ctf-ssh-challenge",
+        "feztix/jenkins-essential-image",
         detach=True,
         name=container_name,
         environment={"CTF_USERNAME": username, "CTF_PASSWORD": password},
